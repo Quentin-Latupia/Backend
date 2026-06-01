@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BackendPanel2025/BackendPanel2025.csproj" />
+  <Project Path="TestRepo/TestRepo.csproj" />
+  <Project Path="TestService/TestService.csproj" />
+</Solution>
