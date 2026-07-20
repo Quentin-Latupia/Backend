@@ -1,0 +1,336 @@
+USE [padel2025]
+/****** Object:  Table [dbo].[Fermeture]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Fermeture](
+	[FER_id] [int] IDENTITY(1,1) NOT NULL,
+	[FER_date] [date] NOT NULL,
+	[FER_type] [int] NOT NULL,
+	[FER_site] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[FER_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Membre]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Membre](
+	[MEM_id] [int] IDENTITY(1,1) NOT NULL,
+	[MEM_nom] [varchar](100) NOT NULL,
+	[MEM_prenom] [varchar](100) NOT NULL,
+	[MEM_matricule] [varchar](10) NOT NULL,
+	[MEM_solde] [decimal](8, 2) NOT NULL,
+	[MEM_type] [int] NOT NULL,
+	[MEM_site] [int] NULL,
+	[MEM_is_admin] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[MEM_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[MEM_matricule] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Paiement]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Paiement](
+	[PAY_id] [int] IDENTITY(1,1) NOT NULL,
+	[PAY_participation] [int] NOT NULL,
+	[PAY_montant] [decimal](6, 2) NOT NULL,
+	[PAY_date] [datetime2](7) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PAY_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Participation_Reservation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Participation_Reservation](
+	[PAR_id] [int] IDENTITY(1,1) NOT NULL,
+	[PAR_reservation] [int] NOT NULL,
+	[PAR_membre] [int] NOT NULL,
+	[PAR_role] [int] NOT NULL,
+	[PAR_statut_paiement] [int] NOT NULL,
+	[PAR_date_paiement] [datetime2](7) NULL,
+	[PAR_montant] [decimal](6, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PAR_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Penalite]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Penalite](
+	[PEN_id] [int] IDENTITY(1,1) NOT NULL,
+	[PEN_membre] [int] NOT NULL,
+	[PEN_reservation] [int] NULL,
+	[PEN_date_debut] [date] NOT NULL,
+	[PEN_date_fin] [date] NOT NULL,
+	[PEN_raison] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PEN_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Periode_Reservation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Periode_Reservation](
+	[PR_id] [int] IDENTITY(1,1) NOT NULL,
+	[PR_heure_ouverture] [time](7) NOT NULL,
+	[PR_heure_fermeture] [time](7) NOT NULL,
+	[PR_annee] [int] NOT NULL,
+	[PR_site] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PR_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Reservation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Reservation](
+	[RES_id] [int] IDENTITY(1,1) NOT NULL,
+	[RES_terrain] [int] NOT NULL,
+	[RES_heure_debut] [datetime2](7) NOT NULL,
+	[RES_heure_fin] [datetime2](7) NOT NULL,
+	[RES_type_reservation] [int] NOT NULL,
+	[RES_reservataire] [int] NOT NULL,
+	[RES_prive] [bit] NOT NULL,
+	[RES_statut] [int] NOT NULL,
+	[RES_nb_max] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RES_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Role_Participation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Role_Participation](
+	[RP_id] [int] IDENTITY(1,1) NOT NULL,
+	[RP_code] [varchar](20) NOT NULL,
+	[RP_libelle] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RP_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[RP_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Site]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Site](
+	[SIT_id] [int] IDENTITY(1,1) NOT NULL,
+	[SIT_nom] [varchar](100) NOT NULL,
+	[SIT_adresse] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SIT_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Statut_Paiement]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Statut_Paiement](
+	[SP_id] [int] IDENTITY(1,1) NOT NULL,
+	[SP_code] [varchar](20) NOT NULL,
+	[SP_libelle] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SP_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[SP_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Statut_Reservation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Statut_Reservation](
+	[SR_id] [int] IDENTITY(1,1) NOT NULL,
+	[SR_code] [varchar](20) NOT NULL,
+	[SR_libelle] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SR_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[SR_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Terrain]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Terrain](
+	[TER_id] [int] IDENTITY(1,1) NOT NULL,
+	[TER_site] [int] NOT NULL,
+	[TER_nom] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TER_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Type_Fermeture]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Type_Fermeture](
+	[TF_id] [int] IDENTITY(1,1) NOT NULL,
+	[TF_code] [varchar](20) NOT NULL,
+	[TF_libelle] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TF_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[TF_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Type_Membre]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Type_Membre](
+	[TM_id] [int] IDENTITY(1,1) NOT NULL,
+	[TM_code] [varchar](20) NOT NULL,
+	[TM_libelle] [varchar](100) NOT NULL,
+	[TM_periode_reservable] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TM_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[TM_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+/****** Object:  Table [dbo].[Type_Reservation]    Script Date: 11/06/2026 19:03:21 ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Type_Reservation](
+	[TR_id] [int] IDENTITY(1,1) NOT NULL,
+	[TR_duree] [int] NOT NULL,
+	[TR_pause] [int] NOT NULL,
+	[TR_periode_reservation] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TR_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+ALTER TABLE [dbo].[Membre] ADD  DEFAULT ((0)) FOR [MEM_solde]
+
+ALTER TABLE [dbo].[Membre] ADD  DEFAULT ((0)) FOR [MEM_is_admin]
+
+ALTER TABLE [dbo].[Participation_Reservation] ADD  DEFAULT ((15)) FOR [PAR_montant]
+
+ALTER TABLE [dbo].[Reservation] ADD  DEFAULT ((4)) FOR [RES_nb_max]
+
+ALTER TABLE [dbo].[Fermeture]  WITH CHECK ADD FOREIGN KEY([FER_site])
+REFERENCES [dbo].[Site] ([SIT_id])
+
+ALTER TABLE [dbo].[Fermeture]  WITH CHECK ADD FOREIGN KEY([FER_type])
+REFERENCES [dbo].[Type_Fermeture] ([TF_id])
+
+ALTER TABLE [dbo].[Membre]  WITH CHECK ADD FOREIGN KEY([MEM_site])
+REFERENCES [dbo].[Site] ([SIT_id])
+
+ALTER TABLE [dbo].[Membre]  WITH CHECK ADD FOREIGN KEY([MEM_type])
+REFERENCES [dbo].[Type_Membre] ([TM_id])
+
+ALTER TABLE [dbo].[Paiement]  WITH CHECK ADD FOREIGN KEY([PAY_participation])
+REFERENCES [dbo].[Participation_Reservation] ([PAR_id])
+
+ALTER TABLE [dbo].[Participation_Reservation]  WITH CHECK ADD FOREIGN KEY([PAR_membre])
+REFERENCES [dbo].[Membre] ([MEM_id])
+
+ALTER TABLE [dbo].[Participation_Reservation]  WITH CHECK ADD FOREIGN KEY([PAR_reservation])
+REFERENCES [dbo].[Reservation] ([RES_id])
+
+ALTER TABLE [dbo].[Participation_Reservation]  WITH CHECK ADD FOREIGN KEY([PAR_role])
+REFERENCES [dbo].[Role_Participation] ([RP_id])
+
+ALTER TABLE [dbo].[Participation_Reservation]  WITH CHECK ADD FOREIGN KEY([PAR_statut_paiement])
+REFERENCES [dbo].[Statut_Paiement] ([SP_id])
+
+ALTER TABLE [dbo].[Penalite]  WITH CHECK ADD FOREIGN KEY([PEN_membre])
+REFERENCES [dbo].[Membre] ([MEM_id])
+
+ALTER TABLE [dbo].[Penalite]  WITH CHECK ADD FOREIGN KEY([PEN_reservation])
+REFERENCES [dbo].[Reservation] ([RES_id])
+
+ALTER TABLE [dbo].[Periode_Reservation]  WITH CHECK ADD FOREIGN KEY([PR_site])
+REFERENCES [dbo].[Site] ([SIT_id])
+
+ALTER TABLE [dbo].[Reservation]  WITH CHECK ADD FOREIGN KEY([RES_reservataire])
+REFERENCES [dbo].[Membre] ([MEM_id])
+
+ALTER TABLE [dbo].[Reservation]  WITH CHECK ADD FOREIGN KEY([RES_statut])
+REFERENCES [dbo].[Statut_Reservation] ([SR_id])
+
+ALTER TABLE [dbo].[Reservation]  WITH CHECK ADD FOREIGN KEY([RES_terrain])
+REFERENCES [dbo].[Terrain] ([TER_id])
+
+ALTER TABLE [dbo].[Reservation]  WITH CHECK ADD FOREIGN KEY([RES_type_reservation])
+REFERENCES [dbo].[Type_Reservation] ([TR_id])
+
+ALTER TABLE [dbo].[Terrain]  WITH CHECK ADD FOREIGN KEY([TER_site])
+REFERENCES [dbo].[Site] ([SIT_id])
+
+ALTER TABLE [dbo].[Type_Reservation]  WITH CHECK ADD FOREIGN KEY([TR_periode_reservation])
+REFERENCES [dbo].[Periode_Reservation] ([PR_id])
+

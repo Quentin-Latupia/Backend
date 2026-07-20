@@ -1,5 +1,9 @@
 <Solution>
   <Project Path="BackendPanel2025/BackendPanel2025.csproj" />
-  <Project Path="TestRepo/TestRepo.csproj" />
-  <Project Path="TestService/TestService.csproj" />
+  <Project Path="Interfaces/Interfaces.csproj" Id="0005d4c9-4cc9-40b5-928d-79f076f33693" />
+  <Project Path="Models/Models.csproj" Id="b662b67d-2e50-4578-ad5c-6192fc0c5836" />
+  <Project Path="Repositories/Repositories.csproj" Id="de21bc91-108f-4b09-a79e-3a52daa3eaad" />
+  <Project Path="Services/Services.csproj" Id="da69e6be-b2f6-49d3-9ffa-6f385049473a" />
+  <Project Path="Tests/Tests.csproj" Id="35482d54-af41-40ce-8f38-532b0a1c301a" />
+  <Project Path="WinFormsUtilisateur/WinFormsUtilisateur.csproj" Id="dbe35b43-461f-49c8-a6c4-405019f47ac8" />
 </Solution>

@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SQL\CreateDB.sql" />
+    <None Remove="SQL\CreateFonctions.sql" />
+    <None Remove="SQL\CreateRole.sql" />
+    <None Remove="SQL\CreateSchema.sql" />
+    <None Remove="SQL\CreateTable.sql" />
+    <None Remove="SQL\CreateUtilisateur.sql" />
+    <None Remove="SQL\CreateVues.sql" />
+    <None Remove="SQL\DropDb.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SQL\CreateLogin.sql" />
+    <EmbeddedResource Include="SQL\CreateDB.sql" />
+    <EmbeddedResource Include="SQL\CreateFonctions.sql" />
+    <EmbeddedResource Include="SQL\CreateProcedures.sql" />
+    <EmbeddedResource Include="SQL\CreateRole.sql" />
+    <EmbeddedResource Include="SQL\CreateSchema.sql" />
+    <EmbeddedResource Include="SQL\CreateTable.sql" />
+    <EmbeddedResource Include="SQL\CreateUtilisateur.sql" />
+    <EmbeddedResource Include="SQL\CreateVues.sql" />
+    <EmbeddedResource Include="SQL\DropDb.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="Testcontainers" Version="4.12.0" />
+    <PackageReference Include="Testcontainers.MsSql" Version="4.12.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

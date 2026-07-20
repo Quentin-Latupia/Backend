@@ -1,0 +1,2 @@
+IF DB_ID(N'padel2025') IS NULL CREATE DATABASE [padel2025]
+
